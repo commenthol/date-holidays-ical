@@ -1,16 +1,21 @@
 {
-  "name": "date-holidays-icalendar",
+  "name": "date-holidays-ical",
   "version": "0.1.0",
-  "description": "",
+  "description": "Generate ical files from date-holidays data",
   "main": "lib",
+  "bin": {
+    "holidays-ical": "bin/holidays-ical.js"
+  },
   "scripts": {
     "test": "mocha test/*.mocha.js",
-    "lint": "eslint *.js **/"
+    "lint": "eslint --quiet --ignore-path .gitignore *.js **/*.js",
+    "pack": "npm run lint && npm test && npm pack"
   },
   "author": "commenthol <commenthol@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "date-holidays": "^0.1.3",
+    "commander": "^2.9.0",
+    "date-holidays": "^0.1.4",
     "resig": "^1.0.1"
   },
   "devDependencies": {
@@ -22,6 +27,9 @@
     "extends": "standard",
     "plugins": [
       "standard"
-    ]
+    ],
+    "rules": {
+      "no-console": 2
+    }
   }
 }

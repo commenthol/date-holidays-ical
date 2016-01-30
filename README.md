@@ -1,13 +1,75 @@
-# date-holidays-icalendar
+# date-holidays-ical
 
-> generate ics files from date-holidays data
+> Generate ical (.ics) files from date-holidays data
+
+[![NPM version](https://badge.fury.io/js/date-holidays-ical.svg)](https://www.npmjs.com/package/date-holidays-ical/)
+[![Build Status](https://secure.travis-ci.org/commenthol/date-holidays-ical.svg?branch=master)](https://travis-ci.org/commenthol/date-holidays-ical)
+
+This tool exports data from [date-holidays][] into iCal format.
+
+## Usage
+
+```
+  Usage: holidays-ical [options]
+
+  Options:
+
+    -h, --help         output usage information
+    -V, --version      output the version number
+    -o, --out <file>   write to file
+    -y, --year <year>  year
+    -f, --fullday      ical events are per full day
+    -s, --showcode     show country code in each ical summary
+    -n, --name <name>  instead of country code add your own name to each ical summary
+    -q, --query        query for available countries, states, regions by shortcode
+
+  Examples:
+
+    Query for available Countries:
+    $ holiday-ical -q
+
+    Query for available States in New Zealand:
+    $ holiday-ical -q NZ
+
+    Calender for 2017 New Zealand, Auckland Province:
+    $ holiday-ical -f -y 2017 NZ.au
+```
+
+Import the generated file into your calendar tool of choice.
+
+## API
+
+```js
+var ical = require('date-holidays-ical')()
+
+// query for available countries
+var res = ical.query()
+//> { AD: 'Andorra',
+//>   ..
+//>   UY: 'Uruguay' }
+
+// intialize with country, e.g. Uruguay
+res = ical.init('UY')
+//> true
+
+// get iCal Calender
+res = ical.calendar(2016)
+```
+
+## LICENSE
+
+[ICS][LICENSE]
 
 ## References
 
 <!-- !ref -->
 
-* [rcf5545][rcf5545]
+* [date-holidays][date-holidays]
+* [LICENSE][LICENSE]
+* [RCF5545][RCF5545]
 
 <!-- ref! -->
 
-[rcf5545]: https://tools.ietf.org/html/rfc5545
+[date-holidays]: https://github.com/commenthol/date-holidays
+[RCF5545]: https://tools.ietf.org/html/rfc5545
+[LICENSE]: ./LICENSE
