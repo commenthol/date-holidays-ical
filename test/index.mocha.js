@@ -4,13 +4,14 @@
 
 var assert = require('assert')
 var fs = require('fs')
+var path = require('path')
 var vcalendar = require('..').vcalendar
 var dates = require('./assets/AT-k-2016')
 
 function comp (str) {
   return str
     .replace(/(CREATED|LAST-MODIFIED|DTSTAMP):\d{8}T\d{6}Z/g, '$1:20160101T000000Z')
-    .replace(/(UID:)\d+/g, '$10000000000')
+    .replace(/(UID:)[^@]+/g, '$10000000000')
 }
 
 describe('#vcalendar', function () {
@@ -126,7 +127,7 @@ describe('#vcalendar', function () {
   it('can write a ics file', function () {
     var res = vcalendar(dates, {fullday: 1})
     res = comp(res)
-    fs.writeFileSync(__dirname + '/assets/AT-k-2016.ics', res, 'utf8')
+    fs.writeFileSync(path.resolve(__dirname, 'assets/AT-k-2016.ics'), res, 'utf8')
     // open the generated file in a calendar
   })
 })
