@@ -23,7 +23,7 @@ describe('#vcalendar', function () {
      'METHOD:PUBLISH\n' +
      'END:VCALENDAR\n' +
      ''
-    assert.equal(res, exp)
+    assert.strictEqual(res, exp)
   })
 
   it('can generate a calendar without one entry', function () {
@@ -46,11 +46,11 @@ describe('#vcalendar', function () {
      'END:VCALENDAR\n' +
      ''
     // ~ console.log(JSON.stringify(res))
-    assert.equal(comp(res), comp(exp))
+    assert.strictEqual(comp(res), comp(exp))
   })
 
   it('can generate a calendar without one fullday entry', function () {
-    var res = vcalendar([].concat(dates[0]), {fullday: 1})
+    var res = vcalendar([].concat(dates[0]), { fullday: 1 })
     var exp = 'BEGIN:VCALENDAR\n' +
       'VERSION:2.0\n' +
       'PRODID:-//date/holidays//NONSGML v1.0//EN\n' +
@@ -69,11 +69,11 @@ describe('#vcalendar', function () {
       'END:VCALENDAR\n' +
       ''
     // ~ console.log(JSON.stringify(res))
-    assert.equal(comp(res), comp(exp))
+    assert.strictEqual(comp(res), comp(exp))
   })
 
   it('can generate a calendar with one fullday entry and time shown as free', function () {
-    var res = vcalendar([].concat(dates[dates.length - 1]), {fullday: 1})
+    var res = vcalendar([].concat(dates[dates.length - 1]), { fullday: 1 })
     var exp = 'BEGIN:VCALENDAR\n' +
      'VERSION:2.0\n' +
      'PRODID:-//date/holidays//NONSGML v1.0//EN\n' +
@@ -92,7 +92,7 @@ describe('#vcalendar', function () {
      'END:VCALENDAR\n' +
      ''
     // ~ console.log(JSON.stringify(res))
-    assert.equal(comp(res), comp(exp))
+    assert.strictEqual(comp(res), comp(exp))
   })
 
   it('can generate a calendar with an entry which lasts 3 days', function () {
@@ -103,7 +103,7 @@ describe('#vcalendar', function () {
       'name': 'A special day',
       'type': 'observance',
       'note': 'soo special'
-    }], {fullday: 1})
+    }], { fullday: 1 })
     var exp = 'BEGIN:VCALENDAR\n' +
      'VERSION:2.0\n' +
      'PRODID:-//date/holidays//NONSGML v1.0//EN\n' +
@@ -121,11 +121,11 @@ describe('#vcalendar', function () {
      'END:VEVENT\n' +
      'END:VCALENDAR\n' +
      ''
-    assert.equal(comp(res), comp(exp))
+    assert.strictEqual(comp(res), comp(exp))
   })
 
   it('can write a ics file', function () {
-    var res = vcalendar(dates, {fullday: 1})
+    var res = vcalendar(dates, { fullday: 1 })
     res = comp(res)
     fs.writeFileSync(path.resolve(__dirname, 'assets/AT-k-2016.ics'), res, 'utf8')
     // open the generated file in a calendar

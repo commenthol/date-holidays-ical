@@ -1,17 +1,35 @@
 {
   "name": "date-holidays-ical",
-  "version": "0.1.2",
+  "version": "0.1.3-0",
   "description": "Generate ical files from date-holidays data",
+  "keywords": [],
+  "homepage": "https://github.com/commenthol/date-holidays-ical#readme",
+  "bugs": {
+    "url": "https://github.com/commenthol/date-holidays-ical/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commenthol/date-holidays-ical.git"
+  },
   "license": "ISC",
   "author": "commenthol <commenthol@gmail.com>",
   "main": "lib",
   "bin": {
     "holidays-ical": "bin/holidays-ical.js"
   },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
-    "lint": "eslint --quiet --ignore-path .gitignore *.js **/*.js",
-    "prepare": "npm run lint && npm test",
-    "test": "mocha test/*.mocha.js"
+    "all": "npm-run-all clean lint test",
+    "clean": "rimraf coverage .nyc_output",
+    "clean:all": "npm-run-all clean clean:node_modules",
+    "clean:node_modules": "rimraf node_modules",
+    "coverage": "nyc -r text -r html npm test",
+    "lint": "eslint '**/*.js'",
+    "prepublishOnly": "npm run all",
+    "test": "mocha"
   },
   "eslintConfig": {
     "extends": "standard",
@@ -28,12 +46,21 @@
     "resig": "^1.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.18.2",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^5.0.1"
-  }
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.3",
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.2"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "maintainers": [
+    "commenthol <commenthol@gmail.com>"
+  ]
 }
