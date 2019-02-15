@@ -2,7 +2,12 @@
   "name": "date-holidays-ical",
   "version": "0.1.3-0",
   "description": "Generate ical files from date-holidays data",
-  "keywords": [],
+  "keywords": [
+    "holidays",
+    "ical",
+    "vcalendar",
+    "world"
+  ],
   "homepage": "https://github.com/commenthol/date-holidays-ical#readme",
   "bugs": {
     "url": "https://github.com/commenthol/date-holidays-ical/issues"
@@ -22,14 +27,20 @@
     "test": "test"
   },
   "scripts": {
-    "all": "npm-run-all clean lint test",
-    "clean": "rimraf coverage .nyc_output",
+    "all": "npm-run-all clean lint build test",
+    "build": "babel -d lib src",
+    "clean": "rimraf lib coverage .nyc_output",
     "clean:all": "npm-run-all clean clean:node_modules",
     "clean:node_modules": "rimraf node_modules",
     "coverage": "nyc -r text -r html npm test",
     "lint": "eslint '**/*.js'",
     "prepublishOnly": "npm run all",
     "test": "mocha"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   },
   "eslintConfig": {
     "extends": "standard",
@@ -42,13 +53,15 @@
   },
   "dependencies": {
     "commander": "^2.14.1",
-    "date-holidays": "^1.2.2",
-    "resig": "^1.0.1"
+    "date-holidays": "^1.3.0"
   },
   "devDependencies": {
-    "eslint": "^5.9.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.13.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",

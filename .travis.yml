@@ -1,10 +1,16 @@
 sudo: false
-
 language: node_js
 
 node_js:
-  - 4.2
+  - 8
+  - 10
   - node
+
+install:
+  - npm install
+
+before_script:
+  - npm run build
 
 script:
   - npm test
