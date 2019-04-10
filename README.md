@@ -48,7 +48,7 @@ var res = ical.query()
 //>   ..
 //>   UY: 'Uruguay' }
 
-// intialize with country, e.g. Uruguay
+// initialize with country, e.g. Uruguay
 res = ical.init('UY')
 //> true
 
