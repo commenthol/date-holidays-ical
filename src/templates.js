@@ -11,7 +11,7 @@ LAST-MODIFIED:${event.created}
 DTSTAMP:${event.created}
 SUMMARY:${event.summary}
 DTSTART;VALUE=DATE:${event.dtstart}
-DTEND;VALUE=DATE:${event.dtend}${event.description ? `\nDESCRIPTION:${event.description}` : `\n`}
+DTEND;VALUE=DATE:${event.dtend}${event.description ? `\nDESCRIPTION:${event.description}` : '\n'}
 TRANSP:${event.busy ? 'OPAQUE' : 'TRANSPARENT'}
 UID:${event.uid}
 END:VEVENT

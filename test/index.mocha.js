@@ -94,12 +94,12 @@ END:VCALENDAR
 
   it('can generate a calendar with an entry which lasts 3 days', function () {
     const res = vcalendar([{
-      'date': '2016-12-26 00:00:00',
-      'start': new Date('2016-12-25T23:00:00.000Z'),
-      'end': new Date('2016-12-28T13:00:00.000Z'),
-      'name': 'A special day',
-      'type': 'observance',
-      'note': 'soo special'
+      date: '2016-12-26 00:00:00',
+      start: new Date('2016-12-25T23:00:00.000Z'),
+      end: new Date('2016-12-28T13:00:00.000Z'),
+      name: 'A special day',
+      type: 'observance',
+      note: 'soo special'
     }], { fullday: 1 })
 
     const exp = `BEGIN:VCALENDAR
