@@ -1,6 +1,6 @@
 {
   "name": "date-holidays-ical",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Generate ical files from date-holidays data",
   "keywords": [
     "holidays",
