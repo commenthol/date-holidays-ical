@@ -1,12 +1,11 @@
-'use strict'
+import assert from 'assert'
+import fs from 'fs'
+import path from 'path'
+import { vcalendar } from '../src/vcalendar.js'
+import dates from './assets/AT-k-2016.js'
+import { fileURLToPath } from 'url'
 
-/* global describe, it */
-
-const assert = require('assert')
-const fs = require('fs')
-const path = require('path')
-const vcalendar = require('..').vcalendar
-const dates = require('./assets/AT-k-2016')
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 function comp (str) {
   return str

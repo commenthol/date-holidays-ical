@@ -1,7 +1,6 @@
-'use strict'
 
-const vcalendar = require('./vcalendar')
-const Holidays = require('date-holidays')
+import { vcalendar } from './vcalendar.js'
+import Holidays from 'date-holidays'
 
 function ical (opts) {
   const hd = new Holidays()
@@ -43,8 +42,8 @@ function ical (opts) {
           if (opts.name) {
             sc = opts.name + ' '
           } else if (opts.showcode) {
-            'country,state,region'.split(',').map(function (p) {
-              var tmp
+            'country,state,region'.split(',').forEach((p) => {
+              let tmp
               if ((tmp = hd.__conf[p])) {
                 sc.push(tmp)
               }

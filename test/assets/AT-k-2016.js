@@ -1,4 +1,4 @@
-module.exports = [
+const m = [
   {
     date: '2016-01-01 00:00:00',
     start: new Date('2015-12-31T23:00:00.000Z'),
@@ -133,3 +133,4 @@ module.exports = [
     type: 'bank'
   }
 ]
+export default m
