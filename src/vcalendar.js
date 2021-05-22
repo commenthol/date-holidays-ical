@@ -1,4 +1,4 @@
-const { tVcalendar, tVevent } = require('./templates')
+import { tVcalendar, tVevent } from './templates.js'
 
 const random = () => Math.random().toString(16).substr(2)
 
@@ -111,9 +111,7 @@ function vevent (date, opts = {}) {
  * @param {Object} [opts]
  * @return {String} vCalendar
  */
-function vcalendar (dates, opts) {
+export function vcalendar (dates, opts) {
   const vevents = dates.map(date => vevent(date, opts))
   return tVcalendar(vevents)
 }
-
-module.exports = vcalendar
