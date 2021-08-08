@@ -2,6 +2,10 @@
 import { vcalendar } from './vcalendar.js'
 import Holidays from 'date-holidays'
 
+/**
+ * @type { import('date-holidays').HolidaysTypes } HolidayTypes
+ */
+
 function ical (opts) {
   const hd = new Holidays()
 
@@ -10,10 +14,11 @@ function ical (opts) {
      * Query for available countries, states
      * @param {String} [country]
      * @param {String} [state]
+     * @param {string} [language]
      * @return {Object} shortcode, name pairs
      */
-    query: function (country, state) {
-      return hd.query(country, state)
+    query: function (country, state, language) {
+      return hd.query(country, state, language)
     },
 
     /**
@@ -21,10 +26,11 @@ function ical (opts) {
      * @param {String} country
      * @param {String} [state]
      * @param {String} [region]
+     * @param {HolidayTypes.Options} [opts]
      * @return {Boolean} true if data could be initialized
      */
-    init: function (country, state, region) {
-      return hd.init(country, state, region)
+    init: function (country, state, region, opts) {
+      return hd.init(country, state, region, opts)
     },
 
     /**

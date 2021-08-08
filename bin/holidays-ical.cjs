@@ -22,7 +22,8 @@ const cmmds = {
   fullday: ['-f', '--fullday', false, 'ical events are per full day'],
   showcode: ['-s', '--showcode', false   , 'show country code in each ical summary'],
   name: ['-n', '--name', 'name', 'instead of country code add your own name to each ical summary'],
-  query: ['-q', '--query', false, 'query for available countries, states, regions by shortcode']
+  query: ['-q', '--query', false, 'query for available countries, states, regions by shortcode'],
+  language: ['-l', '--language', 'language', 'set language']
 }
 
 const cli = (cmmds, argv = process.argv.slice(2)) => {
@@ -64,6 +65,11 @@ const cli = (cmmds, argv = process.argv.slice(2)) => {
 function main (cmd) {
   let res
   let args
+  const opts = {}
+
+  if (cmd.language) {
+    opts.languages = [cmd.language]
+  }
 
   if (cmd.version) {
     console.log(VERSION)
@@ -75,11 +81,13 @@ function main (cmd) {
   }
 
   if (cmd.query) {
-    res = ical.query(...cmd.args)
+    const [country, state] = cmd.args
+    res = ical.query(country, state, cmd.language)
   } else {
     args = []
     args.push(cmd.year)
-    res = ical.init.apply(null, cmd.args)
+    const [country, state, region] = cmd.args
+    res = ical.init.call(null, country, state, region, opts)
     if (res) {
       const opts = {}
       ;['name', 'showcode', 'fullday'].forEach(function (p) {
