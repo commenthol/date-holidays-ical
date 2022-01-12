@@ -69,4 +69,4 @@ function ical (opts) {
 }
 ical.vcalendar = vcalendar
 
-module.exports = ical
+export default ical
