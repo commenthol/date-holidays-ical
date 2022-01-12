@@ -41,6 +41,7 @@
   "scripts": {
     "all": "npm-run-all clean lint build test",
     "build": "rollup -c",
+    "ci": "npm run all",
     "clean": "rimraf lib coverage .nyc_output",
     "clean:all": "npm-run-all clean clean:node_modules",
     "clean:node_modules": "rimraf node_modules",
