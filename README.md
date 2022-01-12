@@ -3,7 +3,8 @@
 > Generate ical (.ics) files from date-holidays data
 
 [![NPM version](https://badge.fury.io/js/date-holidays-ical.svg)](https://www.npmjs.com/package/date-holidays-ical/)
-[![Build Status](https://secure.travis-ci.org/commenthol/date-holidays-ical.svg?branch=master)](https://travis-ci.org/commenthol/date-holidays-ical)
+[![Build Status](https://github.com/commenthol/date-holidays-ical/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/commenthol/date-holidays-ical/actions/workflows/ci.yml?query=branch%3Amaster)
+
 
 This tool exports data from [date-holidays][] into iCal format.
 
