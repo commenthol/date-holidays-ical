@@ -74,6 +74,7 @@ function toDay (str, offset = 0) {
  * @param {Object} date
  * @param {Object} [opts]
  * @param {Boolean} [opts.fullday] - if `true` then event is treated to be on complete day
+ * @param {Boolean} [opts.transp] - if `true` then event is treated to be always transparent
  * @return {String} a single vCalendar vevent
  */
 function vevent (date, opts = {}) {
@@ -98,7 +99,7 @@ function vevent (date, opts = {}) {
     dtstart: dtstart,
     dtend: dtend,
     description: type + (type && note ? ' - ' : '') + note,
-    busy: type === 'public',
+    busy: !opts.transp && type === 'public',
     uid: uid()
   }
 
