@@ -69,6 +69,28 @@ END:VCALENDAR
     assert.strictEqual(comp(res), comp(exp))
   })
 
+  it('can generate a calendar without one fullday entry and force time as free (transparent)', function () {
+    const res = vcalendar([].concat(dates[0]), { fullday: 1, transp: 1 })
+    const exp = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//date/holidays//NONSGML v1.0//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+CREATED:20160130T120534Z
+LAST-MODIFIED:20160130T120534Z
+DTSTAMP:20160130T120534Z
+SUMMARY:Neujahr
+DTSTART;VALUE=DATE:20160101
+DTEND;VALUE=DATE:20160102
+DESCRIPTION:public
+TRANSP:TRANSPARENT
+UID:713946806965395@date-holidays
+END:VEVENT
+END:VCALENDAR
+`
+    assert.strictEqual(comp(res), comp(exp))
+  })
+
   it('can generate a calendar with one fullday entry and time shown as free', function () {
     const res = vcalendar([].concat(dates[dates.length - 1]), { fullday: 1 })
     const exp = `BEGIN:VCALENDAR

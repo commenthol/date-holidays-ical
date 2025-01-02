@@ -20,7 +20,8 @@ const cmmds = {
   out: ['-o', '--out', 'file' , 'write to file'],
   year: ['-y', '--year', 'year', 'year'],
   fullday: ['-f', '--fullday', false, 'ical events are per full day'],
-  showcode: ['-s', '--showcode', false   , 'show country code in each ical summary'],
+  showcode: ['-s', '--showcode', false , 'show country code in each ical summary'],
+  transp: ['-t', '--transp', false, 'ical events are all transparent'],
   name: ['-n', '--name', 'name', 'instead of country code add your own name to each ical summary'],
   query: ['-q', '--query', false, 'query for available countries, states, regions by shortcode'],
   language: ['-l', '--language', 'language', 'set language']
@@ -90,7 +91,7 @@ function main (cmd) {
     res = ical.init.call(null, country, state, region, opts)
     if (res) {
       const opts = {}
-      ;['name', 'showcode', 'fullday'].forEach(function (p) {
+      ;['name', 'showcode', 'fullday', 'transp'].forEach(function (p) {
         if (/string|boolean/.test(typeof cmd[p])) {
           opts[p] = cmd[p]
         }
