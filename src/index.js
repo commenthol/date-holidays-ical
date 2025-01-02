@@ -35,12 +35,20 @@ function ical (opts) {
 
     /**
      * Convert to iCal Calendar
-     * @param {Number} [year]
+     * @param {String} [year]
      * @param {Object} [opts]
      * @return {String} iCal formatted Calendar
      */
     calendar: function (year, opts) {
-      const dates = hd.getHolidays(year)
+      let dates = []
+      if (year.includes('-')) {
+        const [start, end] = year.split('-').map(Number)
+        for (let tmp = start; tmp <= end; tmp++) {
+          dates = dates.concat(hd.getHolidays(tmp))
+        }
+      } else {
+        dates = hd.getHolidays(year)
+      }
 
       if (dates) {
         if (opts.name || opts.showcode) {

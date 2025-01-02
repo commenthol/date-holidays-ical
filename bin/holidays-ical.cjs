@@ -18,7 +18,7 @@ const cmmds = {
   help: ['-h', '--help', false, 'this help'],
   version: ['-v', '--version', false, 'display version'],
   out: ['-o', '--out', 'file' , 'write to file'],
-  year: ['-y', '--year', 'year', 'year'],
+  year: ['-y', '--year', 'year', 'year or year range'],
   fullday: ['-f', '--fullday', false, 'ical events are per full day'],
   showcode: ['-s', '--showcode', false , 'show country code in each ical summary'],
   transp: ['-t', '--transp', false, 'ical events are all transparent'],
@@ -49,6 +49,9 @@ const cli = (cmmds, argv = process.argv.slice(2)) => {
 
       Calender for 2017 New Zealand Auckland Province:
       $ holiday-ical -f -y 2017 NZ.au
+
+      Calender for 2017 - 2019 New Zealand Auckland Province:
+      $ holiday-ical -f -y 2017-2019 NZ.au
   `
   while (argv.length) {
     const arg = argv.shift()
