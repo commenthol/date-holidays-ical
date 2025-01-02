@@ -38,6 +38,11 @@
     "lib": "lib",
     "test": "test"
   },
+  "files": [
+    "bin",
+    "src",
+    "lib"
+  ],
   "scripts": {
     "all": "npm-run-all clean lint build test",
     "build": "rollup -c",
