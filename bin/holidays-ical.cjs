@@ -17,13 +17,28 @@ const VERSION = require('../package.json').version
 const cmmds = {
   help: ['-h', '--help', false, 'this help'],
   version: ['-v', '--version', false, 'display version'],
-  out: ['-o', '--out', 'file' , 'write to file'],
+  out: ['-o', '--out', 'file', 'write to file'],
   year: ['-y', '--year', 'year', 'year or year range'],
   fullday: ['-f', '--fullday', false, 'ical events are per full day'],
-  showcode: ['-s', '--showcode', false , 'show country code in each ical summary'],
+  showcode: [
+    '-s',
+    '--showcode',
+    false,
+    'show country code in each ical summary'
+  ],
   transp: ['-t', '--transp', false, 'ical events are all transparent'],
-  name: ['-n', '--name', 'name', 'instead of country code add your own name to each ical summary'],
-  query: ['-q', '--query', false, 'query for available countries, states, regions by shortcode'],
+  name: [
+    '-n',
+    '--name',
+    'name',
+    'instead of country code add your own name to each ical summary'
+  ],
+  query: [
+    '-q',
+    '--query',
+    false,
+    'query for available countries, states, regions by shortcode'
+  ],
   language: ['-l', '--language', 'language', 'set language']
 }
 
@@ -66,7 +81,7 @@ const cli = (cmmds, argv = process.argv.slice(2)) => {
   return cmd
 }
 
-function main (cmd) {
+function main(cmd) {
   let res
   let args
   const opts = {}

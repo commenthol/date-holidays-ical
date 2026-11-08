@@ -2,45 +2,62 @@ import { vcalendar } from './vcalendar.js'
 import Holidays from 'date-holidays'
 
 /**
- * @type { import('date-holidays').HolidaysTypes } HolidayTypes
+ * @typedef {object} CalendarOptions
+ * @property {string} [name]
+ * @property {boolean} [showcode]
+ * @property {boolean} [fullday]
+ * @property {boolean} [transp]
  */
 
-function ical (opts) {
-  const hd = new Holidays()
+/**
+ * @typedef {object} Ical
+ * @property {(country?: string, state?: string, language?: string) => Record<string, string>} query
+ * @property {(country?: string, state?: string, region?: string, opts?: import('date-holidays').HolidaysTypes.Options) => boolean | undefined} init
+ * @property {(year?: string | number | Date, opts?: CalendarOptions) => string | undefined} calendar
+ */
+
+/**
+ * @param {import('date-holidays').HolidaysTypes.Options} [_opts]
+ * @returns {Ical}
+ */
+function ical(_opts) {
+  const hd = new Holidays(_opts)
 
   const self = {
     /**
-     * Query for available countries, states
-     * @param {String} [country]
-     * @param {String} [state]
+     * Query for available countries and states.
+     * @param {string} [country]
+     * @param {string} [state]
      * @param {string} [language]
-     * @return {Object} shortcode, name pairs
+     * @returns {Record<string, string>} shortcode, name pairs
      */
     query: function (country, state, language) {
       return hd.query(country, state, language)
     },
 
     /**
-     * Initialite date-holidays
-     * @param {String} country
-     * @param {String} [state]
-     * @param {String} [region]
-     * @param {HolidayTypes.Options} [opts]
-     * @return {Boolean} true if data could be initialized
+     * Initialize date-holidays.
+     * @param {string} [country]
+     * @param {string} [state]
+     * @param {string} [region]
+     * @param {import('date-holidays').HolidaysTypes.Options} [opts]
+     * @returns {boolean | undefined} true if data could be initialized
      */
     init: function (country, state, region, opts) {
-      return hd.init(country, state, region, opts)
+      return /** @type {boolean | undefined} */ (
+        /** @type {unknown} */ (hd.init(country, state, region, opts))
+      )
     },
 
     /**
-     * Convert to iCal Calendar
-     * @param {String} [year]
-     * @param {Object} [opts]
-     * @return {String} iCal formatted Calendar
+     * Convert holidays to an iCal calendar.
+     * @param {string | number | Date} [year]
+     * @param {CalendarOptions} [opts]
+     * @returns {string | undefined} iCal-formatted calendar
      */
-    calendar: function (year, opts) {
+    calendar: function (year, opts = {}) {
       let dates = []
-      if (year.includes('-')) {
+      if (typeof year === 'string' && year.includes('-')) {
         const [start, end] = year.split('-').map(Number)
         for (let tmp = start; tmp <= end; tmp++) {
           dates = dates.concat(hd.getHolidays(tmp))
@@ -51,19 +68,21 @@ function ical (opts) {
 
       if (dates) {
         if (opts.name || opts.showcode) {
-          let sc = []
+          let sc = ''
           if (opts.name) {
             sc = opts.name + ' '
           } else if (opts.showcode) {
-            'country,state,region'.split(',').forEach((p) => {
-              let tmp
-              if ((tmp = hd.__conf[p])) {
-                sc.push(tmp)
-              }
-            })
-            sc = '(' + sc.join('.') + ') '
+            const conf =
+              /** @type {{ __conf: Record<string, string | undefined> }} */ (
+                /** @type {unknown} */ (hd)
+              ).__conf
+            const codes = 'country,state,region'
+              .split(',')
+              .map((key) => conf[key])
+              .filter(Boolean)
+            sc = '(' + codes.join('.') + ') '
           }
-          dates.forEach(date => {
+          dates.forEach((date) => {
             date.name = sc + date.name
           })
         }
