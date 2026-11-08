@@ -1,3 +1,4 @@
+/** @param {string[]} vevents */
 export const tVcalendar = (vevents) => `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//date/holidays//NONSGML v1.0//EN
@@ -5,6 +6,18 @@ METHOD:PUBLISH
 ${vevents.join('')}END:VCALENDAR
 `
 
+/**
+ * @typedef {object} CalendarEvent
+ * @property {string} created
+ * @property {string} summary
+ * @property {string} dtstart
+ * @property {string} dtend
+ * @property {string} description
+ * @property {boolean} busy
+ * @property {string} uid
+ */
+
+/** @param {CalendarEvent} event */
 export const tVevent = (event) => `BEGIN:VEVENT
 CREATED:${event.created}
 LAST-MODIFIED:${event.created}

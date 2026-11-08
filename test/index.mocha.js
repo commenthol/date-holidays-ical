@@ -2,16 +2,28 @@ import assert from 'assert'
 import fs from 'fs'
 import path from 'path'
 import { vcalendar } from '../src/vcalendar.js'
+import ical from '../src/index.js'
 import dates from './assets/AT-k-2016.js'
 import { fileURLToPath } from 'url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-function comp (str) {
+function comp(str) {
   return str
-    .replace(/(CREATED|LAST-MODIFIED|DTSTAMP):\d{8}T\d{6}Z/g, '$1:20160101T000000Z')
+    .replace(
+      /(CREATED|LAST-MODIFIED|DTSTAMP):\d{8}T\d{6}Z/g,
+      '$1:20160101T000000Z'
+    )
     .replace(/(UID:)[^@]+/g, '$10000000000')
 }
+
+describe('#ical', function () {
+  it('can generate a calendar for a numeric year without options', function () {
+    const holidays = ical()
+    assert.strictEqual(holidays.init('AT', 'k'), true)
+    assert.ok(holidays.calendar(2016).startsWith('BEGIN:VCALENDAR'))
+  })
+})
 
 describe('#vcalendar', function () {
   it('can generate a calendar without entries', function () {
@@ -114,14 +126,19 @@ END:VCALENDAR
   })
 
   it('can generate a calendar with an entry which lasts 3 days', function () {
-    const res = vcalendar([{
-      date: '2016-12-26 00:00:00',
-      start: new Date('2016-12-25T23:00:00.000Z'),
-      end: new Date('2016-12-28T13:00:00.000Z'),
-      name: 'A special day',
-      type: 'observance',
-      note: 'soo special'
-    }], { fullday: 1 })
+    const res = vcalendar(
+      [
+        {
+          date: '2016-12-26 00:00:00',
+          start: new Date('2016-12-25T23:00:00.000Z'),
+          end: new Date('2016-12-28T13:00:00.000Z'),
+          name: 'A special day',
+          type: 'observance',
+          note: 'soo special'
+        }
+      ],
+      { fullday: 1 }
+    )
 
     const exp = `BEGIN:VCALENDAR
 VERSION:2.0
@@ -146,7 +163,11 @@ END:VCALENDAR
   it('can write a ics file', function () {
     let res = vcalendar(dates, { fullday: 1 })
     res = comp(res)
-    fs.writeFileSync(path.resolve(__dirname, 'assets/AT-k-2016.ics'), res, 'utf8')
+    fs.writeFileSync(
+      path.resolve(__dirname, 'assets/AT-k-2016.ics'),
+      res,
+      'utf8'
+    )
     // open the generated file in a calendar
   })
 })
